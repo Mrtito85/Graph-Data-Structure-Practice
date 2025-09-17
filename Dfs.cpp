@@ -42,6 +42,7 @@ vector<vector<int>> depthFirstSearch(int V,int E,vector<vector<int>> &edges){
             ans.push_back(component);
         }
     }
+    return ans;
 }
 
 int main(){
@@ -50,7 +51,7 @@ int main(){
     while(t--){
         int V,E;
         cin>>V>>E;
-        vector<vector<int>> edges(E);
+        vector<vector<int>> edges(E,vector<int>(2));
         for(int i=0;i<E;i++){
             cin>>edges[i][0];
             cin>>edges[i][1];
@@ -61,6 +62,7 @@ int main(){
             for(auto j:i){
                 cout<<j<<" ";
             }
+            cout<<endl;
         }
     }    
     return 0;
