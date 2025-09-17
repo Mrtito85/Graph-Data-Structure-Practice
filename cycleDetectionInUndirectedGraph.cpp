@@ -37,6 +37,22 @@ if visited ==True && !parent then cycle present true
 
 */
 
+bool dfs(int node,int parent,unordered_map<int,list<int>> &adjlist,unordered_map<int,bool> &visited){
+    visited[node]=true;
+
+    for(auto neighbor:adjlist[node]){
+        if(!visited[neighbor]){
+            bool cycle=dfs(neighbor,node,adjlist,visited);
+            if(cycle)return true;
+        }
+        else if(neighbor!=parent){
+            return true;
+            
+        }
+    }
+    return false;
+}
+
 bool bfs(int src,unordered_map<int,list<int>> &adjlist,unordered_map<int,bool> &visited){
     queue<int> q;
     unordered_map<int,int> parent;
@@ -79,10 +95,12 @@ string cycleDetection(vector<vector<int>> &edges,int n,int m){
     //Traverse all the disconnected components
     for(int i=0;i<n;i++){
         if(!visisted[i]){
-            bool ans=bfs(i,adjlist,visisted);
-            if(ans==1){
-                return "True";
-            }
+            // bool ans=bfs(i,adjlist,visisted);
+            // if(ans==1){
+            //     return "True";
+            // }
+            bool ans =dfs(i,-1,adjlist,visisted);
+            if(ans)return "True";
         }
     }
     return "False";
